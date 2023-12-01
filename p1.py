@@ -1,51 +1,49 @@
-#import pdb
-
 FNAME = "in1.txt"
 DIGITS = '0123456789'
-OPTIONS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
-OPTIONS2 = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'eno', 'owt', 'eerht', 'ruof', 'evif', 'xis', 'neves', 'thgie', 'enin']
+NUMBERS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
 
+# Part 1 - only numeral digits, ignore words
 def parse_line(line):
-    
-    # ugh this doesn't work because of unfriendly inputs, for example 'eightwo' replacing the 'two' will destroy the 'eight'
-    #line = line.replace('one', '1').replace('two', '2').replace('three', '3').replace('four', '4').replace('five', '5').replace('six', '6').replace('seven', '7').replace('eight', '8').replace('nine', '9')
-    # would've been nice!
 
-    i = ""    
     for i in line:
         if i in DIGITS:
             break
 
-    j = ""
     for j in reversed(line):
         if j in DIGITS:
-            break
+            return int(i + j)
+
+# convert a written value into a digit, returning original value (presumably digit) if not found
+DIGIT_LUT = {'one':'1', 'two':'2', 'three':'3', 'four':'4', 'five':'5', 'six':'6', 'seven':'7', 'eight':'8', 'nine':'9'}
+def convert(n):
+    try:
+        return DIGIT_LUT[n]
+    except:
+        return n
     
-    return int(i) * 10 + int(j)
-    
-    
+# Part 2 - words and digits
 def parse_line2(line):
-    a = [line.find(i) for i in OPTIONS]
-    b = min(k for k in a if k >= 0)
+
+    # find the indices of every possible value, and keep the lowest one
+    a = [line.find(i) for i in NUMBERS]
+    b = min(k for k in a if k >= 0) # careful w/ -1 not found
     c = a.index(b)
-    i = OPTIONS[c]
-    i = i.replace('one', '1').replace('two', '2').replace('three', '3').replace('four', '4').replace('five', '5').replace('six', '6').replace('seven', '7').replace('eight', '8').replace('nine', '9')
-    i = int(i)
+    i = NUMBERS[c]
+    i = convert(i)
     
-    line = ''.join(reversed(line))
-    a = [line.find(i) for i in OPTIONS2]
-    b = min(k for k in a if k >= 0)
+    # use rfind to find rightmost instance, intead
+    a = [line.rfind(i) for i in NUMBERS]
+    b = max(a)
     c = a.index(b)
-    j = OPTIONS2[c]
-    j = j.replace('eno', '1').replace('owt', '2').replace('eerht', '3').replace('ruof', '4').replace('evif', '5').replace('xis', '6').replace('neves', '7').replace('thgie', '8').replace('enin', '9')
-    j = int(j)
+    j = NUMBERS[c]
+    j = convert(j)
+    
+    return int(i + j)
 
-    return 10 * i + j
+lines = open(FNAME).read().splitlines()
 
-data = [parse_line(line) for line in open(FNAME).read().splitlines()]
+data = [parse_line(line) for line in lines]
 print("Part 1:", sum(data))
 
-data = [parse_line2(line) for line in open(FNAME).read().splitlines()]
+data = [parse_line2(line) for line in lines]
 print("Part 2:", sum(data))
-
-#pdb.set_trace()
