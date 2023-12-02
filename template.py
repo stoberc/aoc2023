@@ -2,6 +2,7 @@ import pdb
 from collections import defaultdict
 from aoc_utils import *
 import re
+from math import prod
 
 FNAME = "in24.txt"
     
