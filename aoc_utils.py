@@ -16,6 +16,10 @@ def render(points):
                 print('.', end='')
         print()
 
-
+# return a reversed copy of a string
+def reverse_string(s):
+    return ''.join(reversed(s))
     
-
+# handy functions to remember:
+# rfind to find the rightmost (index) of a substring
+# math.prod to find the product of an iterable
