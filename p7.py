@@ -1,5 +1,3 @@
-import pdb
-from math import prod
 import functools
 
 FNAME = "in7.txt"
@@ -67,15 +65,19 @@ def compare(hand_bid1, hand_bid2):
 
 # load the list of hands and sequence it    
 data = [parse_line(line) for line in open(FNAME).read().splitlines()]
-data.sort(key=functools.cmp_to_key(compare))
 
-# score from (1 to n) * bid
-rank = 1
-result = 0
-for _, bid in data:
-    result += rank * bid
-    rank += 1
-print("Part 1:", result)
+# apply the scoring aglo: sort by value, then multiply bid by 1 to n rank
+def score(hand_bids):
+    hand_bids.sort(key=functools.cmp_to_key(compare))
+    rank = 1
+    #return sum(hand_bid[1] * rank for hand_bid, rank in zip(hand_bids, range(1, len(hand_bids) + 1))) # more pythonic but way less readable
+    result = 0
+    for _, bid in data:
+        result += rank * bid
+        rank += 1
+    return result
+    
+print("Part 1:", score(data))
 
 
 # redefine this function for Part 2 to deal with jokers
@@ -99,14 +101,5 @@ def classify_hand(hand):
 # reset scoring for jack to be low for tie breakers
 VALUE_LUT['J'] = 1
 
-# resort and recalculate
-data.sort(key=functools.cmp_to_key(compare))
+print("Part 2:", score(data))
 
-rank = 1
-result = 0
-for _, bid in data:
-    result += rank * bid
-    rank += 1
-print("Part 2:", result)
-
-#pdb.set_trace()
