@@ -21,7 +21,22 @@ def render(points):
 # return a reversed copy of a string
 def reverse_string(s):
     return ''.join(reversed(s))
-    
+
+# transpose a 2D grid
+def transpose(grid):
+    t = type(grid[0])
+    if t == type([]):
+        return [list(i) for i in zip(*grid)]
+    elif t == type(''):
+        return [''.join(i) for i in zip(*grid)]
+    else:
+        raise ValueError("Transpose not equipped to handle this row type:", t)
+
+# returns a 2D list representation of input split into single characters
+# input block should be lines separated by newlines
+def read_grid(block):
+    return [list(line) for line in block.splitlines()]
+
 # handy functions to remember:
 # rfind to find the rightmost (index) of a substring
 # math.prod to find the product of an iterable
