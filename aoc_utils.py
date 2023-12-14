@@ -37,6 +37,12 @@ def transpose(grid):
 def read_grid(block):
     return [list(line) for line in block.splitlines()]
 
+# rotate a 2D list
+# TODO: optimize
+def rotate_clockwise(block):
+    block = transpose(block)
+    return [list(reversed(line)) for line in block]
+
 # handy functions to remember:
 # rfind to find the rightmost (index) of a substring
 # math.prod to find the product of an iterable
