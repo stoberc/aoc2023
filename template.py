@@ -1,5 +1,5 @@
 import pdb
-from collections import defaultdict
+from collections import defaultdict # usage: x = defaultdict(lambda: float('inf')) or defaultdict(list)
 from aoc_utils import *
 import re
 from math import prod
