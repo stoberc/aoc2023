@@ -1,4 +1,8 @@
-DIRECTIONS4 = ((1, 0), (0, 1), (-1, 0), (0, -1))
+UP = (0, -1)
+DOWN = (0, 1)
+LEFT = (-1, 0)
+RIGHT = (1, 0)
+DIRECTIONS4 = (UP, DOWN, LEFT, RIGHT)
 DIRECTIONS8 = DIRECTIONS4 + ((1, 1), (-1, -1), (1, -1), (-1, 1))
 
 DIGITS = '0123456789'
