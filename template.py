@@ -17,5 +17,8 @@ data = [parse_line(line) for line in open(FNAME).read().splitlines()] # in chunk
 
 #data = [int(i) for i in open(FNAME).read().split(',')]
 
+#grid = [list(line) for line in open(FNAME).read().splitlines()]
+#height = len(grid)
+#width = len(grid[0])
 
 pdb.set_trace()
